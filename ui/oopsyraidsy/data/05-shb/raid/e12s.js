@@ -146,7 +146,7 @@ export default {
         // If the target also has a small lion tether, that is always a mistake.
         // Otherwise, it's only a mistake if the target has a fire debuff.
         const hasSmallLion = data.smallLionOwners.includes(matches.target);
-        const hasFireDebuff = data.fire && data.fire.includes(matches.target);
+        const hasFireDebuff = data.fire && data.fire[matches.target];
 
         if (hasSmallLion || hasFireDebuff) {
           const ownerNick = data.ShortName(owner);
@@ -173,7 +173,7 @@ export default {
         const y = parseFloat(matches.y);
         const centerY = 75;
         if (y < centerY)
-          data.northBigLion = matches.sourceId.toUpperCase();
+          data.northBigLion = matches.id.toUpperCase();
       },
     },
     {
@@ -181,7 +181,7 @@ export default {
       netRegex: NetRegexes.ability({ source: 'Regal Sculpture', id: '4F9E' }),
       mistake: (e, data, matches) => {
         const singleTarget = e.type === '15';
-        const hasFireDebuff = data.fire && data.fire.includes(matches.target);
+        const hasFireDebuff = data.fire && data.fire[matches.target];
 
         // Success iff only one person takes it and they have no fire debuff.
         if (singleTarget && !hasFireDebuff)
